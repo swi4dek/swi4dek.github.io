@@ -2,6 +2,7 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Świadek</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -103,21 +104,31 @@
         /* Mobile Responsive Adjustments */
         @media (max-width: 600px) {
             .card {
-                padding: 25px;
+                padding: 30px 20px;
+                width: 66%; 
             }
             
             h1 {
-                font-size: 1.8em; /* Smaller title on mobile */
+                font-size: 2em; /* Reduced from 2.5em */
                 margin-bottom: 20px;
+                line-height: 1.2;
             }
             
             button {
-                width: 100%; /* Full width button is easier to tap */
-                padding: 15px;
+                width: 100%; 
+                padding: 14px; /* Reduced padding */
+                font-size: 20px; /* Reduced from 24px */
+                margin-bottom: 10px;
+            }
+
+            .next-text {
+                font-size: 20px; /* Reduced from 26px */
+                margin-top: 20px;
+                padding: 10px;
             }
 
             img {
-                margin-top: 15px;
+                margin-top: 20px;
             }
         }
     </style>
@@ -125,7 +136,7 @@
 <body>
 
 <div class="card">
-    <h1>Kevin, czy zostaniesz moim świadkiem?</h1>
+    <h1 id="main-text">Kevin, czy zostaniesz moim świadkiem?</h1>
 
     <button id="yesBtn">TAK</button>
 
@@ -147,6 +158,7 @@
     const imgStep1 = document.getElementById("imgStep1");
 
     yesBtn.addEventListener("click", () => {
+        document.getElementById("main-text").textContent = "";
         yesBtn.style.display = "none";
         step1.classList.remove("hidden");
         
