@@ -64,6 +64,15 @@
             background-color: #45a049;
         }
 
+        #noBtn {
+            background-color: #f44336;
+            margin-left: 10px;
+        }
+
+        #noBtn:hover {
+            background-color: #d32f2f;
+        }
+
         .hidden {
             display: none;
         }
@@ -138,28 +147,34 @@
 <div class="card">
     <h1 id="main-text">Kevin, czy zostaniesz moim świadkiem?</h1>
 
-    <button id="yesBtn">TAK</button>
+    <div id="buttons-container">
+        <button id="yesBtn">TAK</button>
+        <button id="noBtn">NIE</button>
+    </div>
 
     <div id="step1" class="hidden step-content">
         <img src="foto3.jpg" alt="My razem" id="imgStep1" class="clickable-img">
-        <div class="next-text" id="nextText" onclick="step1.classList.add('hidden');step2.classList.remove('hidden');">No to jedziemy!</div>
+        <div class="next-text" id="nextText">No to jedziemy!</div>
     </div>
 
     <div id="step2" class="hidden step-content">
         <img src="foto2.jpg" alt="Kevin">
-        <h2 style="font-family: 'Montserrat', cursive; margin-top: 20px; color: #ffd700; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">Dzięki Brachu! 🥂</h2>
+        <h2 id="responseMsg" style="font-family: 'Montserrat', cursive; margin-top: 20px; color: #ffd700; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">Dzięki Brachu! 🥂</h2>
     </div>
 </div>
 
 <script>
     const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
     const step1 = document.getElementById("step1");
     const step2 = document.getElementById("step2");
     const imgStep1 = document.getElementById("imgStep1");
+    const responseMsg = document.getElementById("responseMsg");
 
     yesBtn.addEventListener("click", () => {
         document.getElementById("main-text").textContent = "";
         yesBtn.style.display = "none";
+        noBtn.style.display = "none";
         step1.classList.remove("hidden");
         
         // Confetti explosion effect
@@ -188,10 +203,20 @@
         }());
     });
 
-    imgStep1.addEventListener("click", () => {
-        step1.classList.add("hidden");
+    noBtn.addEventListener("click", () => {
+        document.getElementById("main-text").textContent = "";
+        yesBtn.style.display = "none";
+        noBtn.style.display = "none";
         step2.classList.remove("hidden");
-        // Small burst when showing final photo
+        
+        // Change text for "No" logic
+        responseMsg.textContent = "Nie akceptuję takiej odpowiedzi!";
+        responseMsg.style.color = "#f44336"; // Red color
+    });
+
+    imgStep1.addEventListener("click", () => {
+        // Removed transition to step 2
+        // Just extra confetti joy
         confetti({
             particleCount: 100,
             spread: 70,
