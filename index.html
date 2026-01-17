@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Świadek</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Pacifico&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh; /* Changed from height to min-height */
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("foto1.jpg") no-repeat center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            80% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+
+        .card {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+            max-width: 500px;
+            width: 90%; /* Ensure card fits on small screens */
+            animation: fadeIn 1s ease-out;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            font-family: 'Montserrat', cursive;
+            font-weight: normal;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            background-color: #45a049;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        img {
+            margin-top: 20px;
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            transition: transform 0.3s ease;
+        }
+
+        .clickable-img {
+            cursor: pointer;
+        }
+
+        .clickable-img:hover {
+            transform: scale(1.05) rotate(1deg);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+        }
+
+        .step-content {
+            animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .next-text {
+            margin-top: 20px;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #ffd700;
+        }
+
+        .next-text:hover {
+            text-decoration: underline;
+        }
+
+        /* Mobile Responsive Adjustments */
+        @media (max-width: 600px) {
+            .card {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 1.8em; /* Smaller title on mobile */
+                margin-bottom: 20px;
+            }
+            
+            button {
+                width: 100%; /* Full width button is easier to tap */
+                padding: 15px;
+            }
+
+            img {
+                margin-top: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>Kevin, czy zostaniesz moim świadkiem?</h1>
+
+    <button id="yesBtn">TAK</button>
+
+    <div id="step1" class="hidden step-content">
+        <img src="foto3.jpg" alt="My razem" id="imgStep1" class="clickable-img">
+        <div class="next-text" id="nextText" onclick="step1.classList.add('hidden');step2.classList.remove('hidden');">No to jedziemy!</div>
+    </div>
+
+    <div id="step2" class="hidden step-content">
+        <img src="foto2.jpg" alt="Kevin">
+        <h2 style="font-family: 'Montserrat', cursive; margin-top: 20px; color: #ffd700; text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">Dzięki Brachu! 🥂</h2>
+    </div>
+</div>
+
+<script>
+    const yesBtn = document.getElementById("yesBtn");
+    const step1 = document.getElementById("step1");
+    const step2 = document.getElementById("step2");
+    const imgStep1 = document.getElementById("imgStep1");
+
+    yesBtn.addEventListener("click", () => {
+        yesBtn.style.display = "none";
+        step1.classList.remove("hidden");
+        
+        // Confetti explosion effect
+        var duration = 3 * 1000;
+        var end = Date.now() + duration;
+
+        (function frame() {
+            confetti({
+                particleCount: 5,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 },
+                colors: ['#4CAF50', '#ffd700', '#ffffff'] // Green, Gold, White
+            });
+            confetti({
+                particleCount: 5,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 },
+                colors: ['#4CAF50', '#ffd700', '#ffffff']
+            });
+
+            if (Date.now() < end) {
+                requestAnimationFrame(frame);
+            }
+        }());
+    });
+
+    imgStep1.addEventListener("click", () => {
+        step1.classList.add("hidden");
+        step2.classList.remove("hidden");
+        // Small burst when showing final photo
+        confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 }
+        });
+    });
+</script>
+
+</body>
+</html>
