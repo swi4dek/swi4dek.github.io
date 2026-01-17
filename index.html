@@ -9,7 +9,8 @@
     <style>
         body {
             margin: 0;
-            min-height: 100vh; /* Changed from height to min-height */
+            height: 100vh; /* Fixed height instead of min-height */
+            overflow: hidden; /* Strictly disable scrolling */
             font-family: 'Montserrat', sans-serif;
             background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("foto1.jpg") no-repeat center fixed;
             background-size: cover;
@@ -64,9 +65,14 @@
             background-color: #45a049;
         }
 
+        #buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
         #noBtn {
             background-color: #f44336;
-            margin-left: 10px;
         }
 
         #noBtn:hover {
@@ -116,6 +122,11 @@
                 padding: 30px 20px;
                 width: 66%; 
             }
+
+            #buttons-container {
+                flex-direction: column;
+                gap: 10px;
+            }
             
             h1 {
                 font-size: 2em; /* Reduced from 2.5em */
@@ -127,7 +138,7 @@
                 width: 100%; 
                 padding: 14px; /* Reduced padding */
                 font-size: 20px; /* Reduced from 24px */
-                margin-bottom: 10px;
+                margin-bottom: 0;
             }
 
             .next-text {
